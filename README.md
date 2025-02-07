@@ -1,2 +1,2 @@
-# rl_algorithms
-Repository to contain the residency's reinforcement learning training algorithms
+# RL Algorithms
+Repository created to contain the residency's reinforcement learning algorithms
