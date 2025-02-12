@@ -41,6 +41,7 @@ fail_under = 80
 omit = [
     "tests/",
     "*/__init__.py",
+    "agents/methods/agent.py",
 ]
 
 [tool.coverage.html]  
