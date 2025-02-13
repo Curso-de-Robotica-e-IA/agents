@@ -1,4 +1,4 @@
-# Reinforcement Learning applied to RRIA context environments
+# Reinforcement Learning applied to RRIA context environments![Tests Status](./reports/tests-badge.svg)
 Repository created to contain the residency's reinforcement learning algorithms
 
 ## Installation
