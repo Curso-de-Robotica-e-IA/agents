@@ -48,7 +48,7 @@ omit = [
 directory = "htmlcov"
 
 [tool.taskipy.tasks]
-test = "pytest --cov tests --cov-report html --junitxml=reports/junit/junit.xml"
+test = "pytest --cov tests --junitxml=reports/junit/junit.xml"
 test-badge = "genbadge tests -o reports/tests-badge.svg"
 
 
