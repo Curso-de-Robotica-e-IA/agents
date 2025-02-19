@@ -31,6 +31,7 @@ pytest-cov = "^6.0.0"
 taskipy = "^1.14.1"
 genbadge = {extras = ["all"], version = "^1.1.1"}
 pre-commit = "^4.1.0"
+coverage-badge = "^1.1.2"
 
 [tool.coverage.run]
 branch = true
@@ -49,9 +50,8 @@ omit = [
 directory = "htmlcov"
 
 [tool.taskipy.tasks]
-test = "pytest --cov tests --junitxml=reports/junit/junit.xml"
-test-badge = "genbadge tests -o reports/tests-badge.svg"
-
+test = "pytest --cov tests"
+test-badge = "coverage-badge -fo reports/tests-badge.svg"
 
 [build-system]
 requires = ["poetry-core"]

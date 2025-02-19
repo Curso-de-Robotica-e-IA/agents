@@ -416,6 +416,22 @@ tomli = {version = "*", optional = true, markers = "python_full_version <= \"3.1
 toml = ["tomli"]
 
 [[package]]
+name = "coverage-badge"
+version = "1.1.2"
+description = "Generate coverage badges for Coverage.py."
+category = "dev"
+optional = false
+python-versions = "*"
+files = [
+    {file = "coverage_badge-1.1.2-py2.py3-none-any.whl", hash = "sha256:d8413ce51c91043a1692b943616b450868cbeeb0ea6a0c54a32f8318c9c96ff7"},
+    {file = "coverage_badge-1.1.2.tar.gz", hash = "sha256:fe7ed58a3b72dad85a553b64a99e963dea3847dcd0b8ddd2b38a00333618642c"},
+]
+
+[package.dependencies]
+coverage = "*"
+setuptools = "*"
+
+[[package]]
 name = "cython"
 version = "0.29.37"
 description = "The Cython compiler for writing C extensions for the Python language."
@@ -2873,4 +2889,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "90ac48dd8bc4be44052ecfe7bf516973bd5697e60cc02b878d67183bc5497a34"
+content-hash = "7a3f1aef91fa1e6e41207a179cfe18535064b59b3125272c27d4bc54d31dabfd"
