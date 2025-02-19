@@ -76,8 +76,7 @@ class QLearning(Agent):
                     "When using a Box observation space, the shape must be 2D."
                 )
         else:
-            raise ValueError(
-                "Observation space must be of type Discrete or Box 2D.")
+            raise ValueError("Observation space must be of type Discrete or Box 2D.")
 
     def set_output_space(self, action_space: Discrete):
         """Set the output space of the agent.

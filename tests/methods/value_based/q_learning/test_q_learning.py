@@ -12,7 +12,6 @@ def sample_env():
 
 @pytest.fixture
 def agent(sample_env: gym.Env, monkeypatch):
-
     QLearning.__abstractmethods__ = set()
 
     def set_table(self):
@@ -39,14 +38,16 @@ def agent(sample_env: gym.Env, monkeypatch):
 
 
 def test_hyper_parameters(agent: QLearning):
-    agent.hyper_parameters({
-        "gamma": 0.98,
-        "alpha": 0.02,
-        "epsilon": 2.0,
-        "epsilon_decay": 0.989,
-        "epsilon_min": 0.02,
-        "reward_scale": 120,
-    })
+    agent.hyper_parameters(
+        {
+            "gamma": 0.98,
+            "alpha": 0.02,
+            "epsilon": 2.0,
+            "epsilon_decay": 0.989,
+            "epsilon_min": 0.02,
+            "reward_scale": 120,
+        }
+    )
     assert agent.gamma == 0.98
     assert agent.alpha == 0.02
     assert agent.epsilon == 2.0
@@ -55,52 +56,74 @@ def test_hyper_parameters(agent: QLearning):
     assert agent.reward_scale == 120
 
 
-@pytest.mark.parametrize("space, expected", [
-    (gym.spaces.Discrete(10),  ()),
-    (gym.spaces.Box(-1, 1, (3, 3)),  (3, 3)),
-    pytest.param(gym.spaces.MultiDiscrete(
-        [2, 3, 4]),  (), marks=pytest.mark.xfail),
-    pytest.param(gym.spaces.MultiBinary(10),  (), marks=pytest.mark.xfail),
-    pytest.param(gym.spaces.Tuple([gym.spaces.Discrete(
-        10), gym.spaces.Discrete(10)]),  (), marks=pytest.mark.xfail),
-])
+@pytest.mark.parametrize(
+    "space, expected",
+    [
+        (gym.spaces.Discrete(10), ()),
+        (gym.spaces.Box(-1, 1, (3, 3)), (3, 3)),
+        pytest.param(gym.spaces.MultiDiscrete([2, 3, 4]), (), marks=pytest.mark.xfail),
+        pytest.param(gym.spaces.MultiBinary(10), (), marks=pytest.mark.xfail),
+        pytest.param(
+            gym.spaces.Tuple([gym.spaces.Discrete(10), gym.spaces.Discrete(10)]),
+            (),
+            marks=pytest.mark.xfail,
+        ),
+    ],
+)
 def test_set_input_space(agent: QLearning, space: gym.Space, expected: tuple):
     agent.set_input_space(space)
     assert agent.observation_space.shape == expected
 
 
-@pytest.mark.parametrize("space", [
-    pytest.param(gym.spaces.MultiDiscrete([2, 3, 4])),
-    pytest.param(gym.spaces.MultiBinary(10)),
-    pytest.param(gym.spaces.Tuple(
-        [gym.spaces.Discrete(10), gym.spaces.Discrete(10)])),
-])
-def test_set_input_space_raise_error_when_wrong_space(agent: QLearning, space: gym.Space):
+@pytest.mark.parametrize(
+    "space",
+    [
+        pytest.param(gym.spaces.MultiDiscrete([2, 3, 4])),
+        pytest.param(gym.spaces.MultiBinary(10)),
+        pytest.param(
+            gym.spaces.Tuple([gym.spaces.Discrete(10), gym.spaces.Discrete(10)])
+        ),
+    ],
+)
+def test_set_input_space_raise_error_when_wrong_space(
+    agent: QLearning, space: gym.Space
+):
     with pytest.raises(ValueError):
         agent.set_input_space(space)
 
 
-@pytest.mark.parametrize("space, expected", [
-    (gym.spaces.Discrete(10),  10),
-    pytest.param(gym.spaces.Box(-1, 1, (3, 3)),  9, marks=pytest.mark.xfail),
-    pytest.param(gym.spaces.MultiDiscrete(
-        [2, 3, 4]),  9, marks=pytest.mark.xfail),
-    pytest.param(gym.spaces.MultiBinary(10),  9, marks=pytest.mark.xfail),
-    pytest.param(gym.spaces.Tuple([gym.spaces.Discrete(
-        10), gym.spaces.Discrete(10)]),  9, marks=pytest.mark.xfail),
-])
+@pytest.mark.parametrize(
+    "space, expected",
+    [
+        (gym.spaces.Discrete(10), 10),
+        pytest.param(gym.spaces.Box(-1, 1, (3, 3)), 9, marks=pytest.mark.xfail),
+        pytest.param(gym.spaces.MultiDiscrete([2, 3, 4]), 9, marks=pytest.mark.xfail),
+        pytest.param(gym.spaces.MultiBinary(10), 9, marks=pytest.mark.xfail),
+        pytest.param(
+            gym.spaces.Tuple([gym.spaces.Discrete(10), gym.spaces.Discrete(10)]),
+            9,
+            marks=pytest.mark.xfail,
+        ),
+    ],
+)
 def test_set_output_space(agent: QLearning, space: gym.Space, expected: int):
     agent.set_output_space(space)
     assert agent.num_actions == expected
 
 
-@pytest.mark.parametrize("space", [
-    pytest.param(gym.spaces.MultiDiscrete([2, 3, 4])),
-    pytest.param(gym.spaces.MultiBinary(10)),
-    pytest.param(gym.spaces.Tuple(
-        [gym.spaces.Discrete(10), gym.spaces.Discrete(10)])),
-])
-def test_set_output_space_raise_error_when_wrong_space(agent: QLearning, space: gym.Space):
+@pytest.mark.parametrize(
+    "space",
+    [
+        pytest.param(gym.spaces.MultiDiscrete([2, 3, 4])),
+        pytest.param(gym.spaces.MultiBinary(10)),
+        pytest.param(
+            gym.spaces.Tuple([gym.spaces.Discrete(10), gym.spaces.Discrete(10)])
+        ),
+    ],
+)
+def test_set_output_space_raise_error_when_wrong_space(
+    agent: QLearning, space: gym.Space
+):
     with pytest.raises(ValueError):
         agent.set_output_space(space)
 
