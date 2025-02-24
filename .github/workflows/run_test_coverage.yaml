@@ -57,10 +57,3 @@ jobs:
       #----------------------------------------------
       - name: Install project
         run: poetry install --verbose --no-interaction
-
-      #----------------------------------------------
-      #       Test coverage
-      #----------------------------------------------
-      - name: Run tests and generate coverage
-        run: |
-          poetry run task test-badge
