@@ -19,13 +19,6 @@ repos:
             types_or: [python, pyi]
     - repo: local
       hooks:
-      - id: pytest
-        name: pytest
-        entry: poetry run task test
-        language: system
-        types: [python]
-        pass_filenames: false
-        always_run: true
       - id: coverage-badge
         name: coverage-badge
         language: system
