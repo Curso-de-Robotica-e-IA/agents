@@ -1,5 +1,12 @@
 name: Coverage CI
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - dev
+      - main
 
 jobs:
   poetry:
@@ -64,4 +71,3 @@ jobs:
       - name: Run tests and generate coverage
         run: |
           poetry run task test
-          poetry run task test-badge
